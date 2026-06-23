@@ -1,0 +1,24 @@
+----- Raízes do Norte -----
+
+	>> Requisitos funcionais <<
+
+> Cadastro de usuários
+> Login
+> Consultar Cardápio
+> Criar Pedido
+> Controle de Estoque
+> Atualizar status do pedido
+> Programa de fidelidade
+> Pagamento Mock
+> Consulta por canal (Filtro)
+
+	>> Requisitos não funcionais <<
+
+> Segurança ( criptografar senhas usando o hash )
+> Autenticação ( JWT )
+> Controle de acesso
+> LGPD
+> Auditoria
+> Disponibilidade
+> Tolerância a falhas
+> Documentação (Swagger//OpenAPI)
