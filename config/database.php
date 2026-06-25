@@ -8,8 +8,7 @@ $pass = "";
 // Tentativa de conexão
 try{
 $pdo = new PDO(
-    "mysql:host=$host;
-    dbname=$db",charset=utf8,
+    "mysql:host=$host;dbname=$db;charset=utf8",
     $user,
     $pass
 );
@@ -23,3 +22,4 @@ catch(Exception $erro){
 // Mostrar mensagem
 die("ERRO AO CONECTAR AO BANCO DE DADOS: ".$erro->getMessage());
 }
+?>
