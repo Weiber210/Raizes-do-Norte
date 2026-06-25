@@ -1,6 +1,6 @@
 -- Auditoria do Sistema
  create table auditoria(
-  id int auto_increment primary key,
+  id serial primary key,
   usuario_id int not null,
   acao varchar(100) not null,
   descricao varchar(255) not null,

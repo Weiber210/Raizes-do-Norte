@@ -1,6 +1,6 @@
 -- Itens Pedidos do Sistema
  create table itens_pedido(
-  id int auto_increment primary key,
+  id serial primary key,
   pedido_id int not null,
   produto_id int not null,
   quantidade int not null,

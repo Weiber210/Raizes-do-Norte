@@ -1,14 +1,18 @@
-// localização e conexão com o banco
+// localização e conexão com o banco de dados
 <?php
-$host = "localhost";
-$db = "raizes_do_norte";
-$user = "root";
-$pass = "";   
+require_once "env.php";
+
+//Dados do banco
+$host = $_ENV['DB_HOST'];
+$port = $_ENV['DB_PORT'];
+$db = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
 
 // Tentativa de conexão
 try{
 $pdo = new PDO(
-    "mysql:host=$host;dbname=$db;charset=utf8",
+    "pgsql:host=$host;port=$port;dbname=$db",
     $user,
     $pass
 );

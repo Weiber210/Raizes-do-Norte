@@ -1,6 +1,6 @@
 -- Pagamentos do Sistema
  create table pagamentos(
-  id int auto_increment primary key,
+  id serial primary key,
   pedido_id int not null,
   status varchar(50) not null,
   valor decimal(10,2) not null,

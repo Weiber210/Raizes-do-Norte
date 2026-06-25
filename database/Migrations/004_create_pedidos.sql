@@ -1,6 +1,6 @@
 -- Pedidos do sistema
  create table pedidos(
-  id int auto_increment primary key,
+  id serial primary key,
   cliente_id int not null,
   unidade_id int not null,
   canal_pedido varchar(50) not null,

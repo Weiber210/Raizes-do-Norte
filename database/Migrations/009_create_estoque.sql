@@ -1,6 +1,6 @@
 -- Estoque do Sistema
  create table estoque(
-  id int auto_increment primary key,
+  id serial primary key,
   produto_id int not null,
   unidade_id int not null,
   quantidade int not null,
