@@ -1,5 +1,7 @@
-// localização e conexão com o banco de dados
+
+
 <?php
+//localização e conexão com o banco de dados
 require_once "env.php";
 
 //Dados do banco
@@ -20,10 +22,9 @@ $pdo = new PDO(
 // Mostrar o erro
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-
 catch(Exception $erro){
 
 // Mostrar mensagem
 die("ERRO AO CONECTAR AO BANCO DE DADOS: ".$erro->getMessage());
 }
-?>
+?>*/
