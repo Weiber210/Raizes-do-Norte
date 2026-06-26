@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Email ou senha inválidos!";
     }
 }
-// INTERFACE DE LOGIN
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
