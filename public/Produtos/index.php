@@ -35,6 +35,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>Descrição</th>
             <th>Preço</th>
             <th>Status</th>
+            <th>Ações</th>
         </tr>
         <?php foreach($produtos as $produto){ ?>
         <tr>
@@ -42,8 +43,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= $produto['nome'] ?></td>
                 <td><?= $produto['descricao'] ?></td>
                 <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
-                <td>
-                    <?php
+                <td><?php
                     if($produto['ativo']){
                         echo "Ativo";
                     }else{
@@ -51,9 +51,10 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     }
                     ?>
                 </td>
-        <a href="editar.php?id=<?= $produto['id'] ?>"><Button>Editar</Button></a>
-        <a onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>"><Button>Excluir</Button></a>
-            
+                <td class="actions">
+                    <a href="editar.php?id=<?= $produto['id'] ?>"><button>Editar</button></a>
+                    <a onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>"><button>Excluir</button></a>
+                </td>
         </tr>
             <?php } ?>
     </table>
