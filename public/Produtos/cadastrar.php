@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $preco = $_POST['preco'];
     $ativo = ($_POST['ativo'] === 'true');
 
-    // Exeecutar consulta
+    // Executar consulta
     $sql = "INSERT INTO produtos (nome, descricao, preco, ativo) 
             VALUES (?, ?, ?, ?)"; 
     
