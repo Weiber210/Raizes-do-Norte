@@ -1,5 +1,5 @@
 <?php
-///Conectar ao banco de dados
+//Conectar ao banco de dados
 require_once '../../config/database.php';
 
 // Localiza o ID
@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </select><br><br>
 
         <button type="submit">Salvar</button>
+        <a href="index.php"><button>Cancelar</button></a>
 
      </form>
 </body>

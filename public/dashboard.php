@@ -7,7 +7,6 @@ if (!isset($_SESSION["usuario"])) {
     exit;
 }
 ?>
-// Menu e informações do usuário logado
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,14 +15,14 @@ if (!isset($_SESSION["usuario"])) {
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard Raízes do Norte</h1>
+    <h1>Raízes do Norte</h1>
     <p>Bem-vindo, <?php echo $_SESSION["usuario"]; ?>!</p>
     <p>Perfil: <?php echo $_SESSION["perfil"]; ?></p>
 
     <hr>
     <h2>Menu</h2>
     <ul>
-        <li>Produtos</li>
+        <a href="produtos/index.php"><button>Produtos</button></a>
         <li>Pedidos</li>
         <li>Unidades</li>
         <li>Usuários</li>
@@ -31,7 +30,7 @@ if (!isset($_SESSION["usuario"])) {
     </ul>
     
     <br>
-    <a href="logout.php">Sair</a>
+    <a href="login.php">Sair</a>
 
 
 

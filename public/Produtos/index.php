@@ -23,9 +23,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <H1>Produtos</H1>
     
-        <a href="cadastrar.php">
-        <button>Novo Produto</button>
-        </a>
+        <a href="cadastrar.php"><button>Novo Produto</button></a>
+        <a href="../dashboard.php"><button>Voltar</button></a>
+
         <br><br> 
 
     <table border="1" cellpadding="8">
@@ -51,9 +51,8 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     }
                     ?>
                 </td>
-        <a href="editar.php?id=<?= $produto['id'] ?>">
-        <Button>Editar</Button>
-        </a>
+        <a href="editar.php?id=<?= $produto['id'] ?>"><Button>Editar</Button></a>
+        <a onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>"><Button>Excluir</Button></a>
             
         </tr>
             <?php } ?>

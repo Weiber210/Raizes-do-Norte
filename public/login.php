@@ -9,13 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $senha = $_POST["senha"];
 
+
     $sql = "select * from usuarios WHERE email = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo "<pre>";
+    print_r($usuario);
+    echo "</pre>";
+    echo "<pre>";
+    print_r($usuario["senha"]);
+    echo "</pre>";
 
-    if ($usuario && password_verify($senha, $usuario["senha"])) {
+    if ($usuario && $senha === $usuario["senha"]) {
 
         $_SESSION["usuario"] = $usuario["nome"];
         $_SESSION["perfil"] = $usuario["perfil"];
