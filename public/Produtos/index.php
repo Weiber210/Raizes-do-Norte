@@ -22,6 +22,12 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <H1>Produtos</H1>
+    
+       <a href="cadastrar.php">
+        <button>Novo Produto</button>
+        </a>
+        <br><br> 
+
     <table border="1" cellpadding="8">
         <tr>
             <th>ID</th>
