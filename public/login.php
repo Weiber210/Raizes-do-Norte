@@ -1,5 +1,6 @@
-// VALIDAÇÃO DE LOGIN
+
 <?php
+// VALIDAÇÃO DE LOGIN
 require_once '../config/database.php';
 session_start();
 
@@ -26,9 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Email ou senha inválidos!";
     }
 }
-?>
-
 // INTERFACE DE LOGIN
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
