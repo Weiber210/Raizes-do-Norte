@@ -23,7 +23,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <H1>Produtos</H1>
     
-       <a href="cadastrar.php">
+        <a href="cadastrar.php">
         <button>Novo Produto</button>
         </a>
         <br><br> 
@@ -35,9 +35,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>Descrição</th>
             <th>Preço</th>
             <th>Status</th>
-        <tr>
+        </tr>
         <?php foreach($produtos as $produto){ ?>
-            <tr>
+        <tr>
                 <td><?= $produto['id'] ?></td>
                 <td><?= $produto['nome'] ?></td>
                 <td><?= $produto['descricao'] ?></td>
@@ -51,9 +51,11 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     }
                     ?>
                 </td>
-
+        <a href="editar.php?id=<?= $produto['id'] ?>">
+        <Button>Editar</Button>
+        </a>
             
-            </tr>
+        </tr>
             <?php } ?>
     </table>
 </body>

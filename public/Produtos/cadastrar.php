@@ -6,20 +6,27 @@ require_once '../../config/database.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Obter os dados do formulário
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $preco = $_POST['preco'];
-    $ativo = ($_POST['ativo'] === 'true');
+        $nome = $_POST['nome'];
+        $descricao = $_POST['descricao'];
+        $preco = $_POST['preco'];
+        $preco = str_replace(',', '.', $preco);
+        $ativo = ($_POST['ativo'] === 'true');
 
-    // Executar consulta
-    $sql = "INSERT INTO produtos (nome, descricao, preco, ativo) 
-            VALUES (?, ?, ?, ?)"; 
+        // Executar consulta
+        $sql = "INSERT INTO produtos (nome, descricao, preco, ativo) 
+                VALUES (?, ?, ?, ?)"; 
     
-    // Preparar a consulta
-    $stmt = $pdo->prepare($sql);
+        // Preparar a consulta
+        $stmt = $pdo->prepare($sql);
 
-    // Executar a consulta
-    $stmt->execute([$nome, $descricao, $preco, $ativo]);
+        // vincula valores com tipos explícitos
+        $stmt->bindValue(1, $nome, PDO::PARAM_STR);
+        $stmt->bindValue(2, $descricao, PDO::PARAM_STR);
+        $stmt->bindValue(3, $preco, PDO::PARAM_STR);
+        $stmt->bindValue(4, $ativo, PDO::PARAM_BOOL);
+
+        // Executar a consulta
+        $stmt->execute();
 
     // volte para a lista de produtos
     header("Location: index.php");
