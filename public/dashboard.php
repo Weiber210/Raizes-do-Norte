@@ -1,17 +1,29 @@
 <?php
-session_start();
+// Bloqueio de Login
+require_once 'auth/verificar.php';
+
 
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
-// Faz retornar para a página de login
-if (!isset($_SESSION["usuario"])) {
-    header("Location: login.php");
-    exit;
-}
 ?>
+
+//Verificar Login
+<script>
+    fetch('auth/verificar.php')
+        .then(response => {
+            if (response.status === 200) {
+                console.log("sessão Ativa")
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao verificar login:', error);
+            window.location.href = 'login.php';
+        });
+</script>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

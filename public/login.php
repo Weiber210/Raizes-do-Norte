@@ -1,6 +1,6 @@
 
 <?php
-// VALIDAÇÃO DE LOGIN
+//  Conectando com o banco de dados
 require_once '../config/database.php';
 session_start();
 
