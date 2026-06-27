@@ -22,8 +22,8 @@ if (!isset($_SESSION["usuario"])) {
     <hr>
     <h2>Menu</h2>
     <ul>
-        <a href="produtos/index.php"><button>Produtos</button></a>
-        <li>Pedidos</li>
+        <a href="produtos/index.php"><button>Produtos</button></a><br><br>
+        <a href="usuarios/index.php"><button>Usuários</button></a>
         <li>Unidades</li>
         <li>Usuários</li>
         <li>Pagamentos</li>
