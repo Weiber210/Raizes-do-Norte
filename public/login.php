@@ -15,17 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute([$email]);
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-    echo "<pre>";
-    print_r($usuario);
-    echo "</pre>";
-    echo "<pre>";
-    print_r($usuario["senha"]);
-    echo "</pre>";
 
-    if ($usuario && $senha === $usuario["senha"]) {
+    if ($usuario && password_verify($senha, $usuario["senha"])) {
 
+        $_SESSION["id"] = $usuario["id"];
         $_SESSION["usuario"] = $usuario["nome"];
+        $_SESSION["email"] = $usuario["email"];
         $_SESSION["perfil"] = $usuario["perfil"];
+        $_SESSION["ultimo_acesso"] = time();
 
         header("Location: dashboard.php");
         exit;

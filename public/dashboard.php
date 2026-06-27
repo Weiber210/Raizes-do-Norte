@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
 // Faz retornar para a página de login
 if (!isset($_SESSION["usuario"])) {
     header("Location: login.php");
@@ -25,12 +30,12 @@ if (!isset($_SESSION["usuario"])) {
         <a href="produtos/index.php"><button>Produtos</button></a><br><br>
         <a href="usuarios/index.php"><button>Usuários</button></a>
         <li>Unidades</li>
-        <li>Usuários</li>
+        <li>Pedidos</li>
         <li>Pagamentos</li>
     </ul>
     
     <br>
-    <a href="login.php">Sair</a>
+    <a href="logout.php">Sair</a>
 
 
 
