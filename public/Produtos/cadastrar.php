@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select><br><br>
 
         <button type="submit">Cadastrar</button>
-        <a href="index.php"><button type="button">Cancelar</button></a>
+        <a href="index.php">Cancelar</a>
     </form>
 </body>
 </html>
