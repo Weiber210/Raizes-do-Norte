@@ -27,11 +27,11 @@ $pedidos = $controller->listar($_GET);
     <H1>Pedidos</H1>
 
     <?php if (isset($_GET["pedido_criado"])) { ?>
-    <p>Pedido número<?= (int) $_GET["pedido_criado"] ?>cadastrado com sucesso.</p>
+    <p>Pedido número <?= (int) $_GET["pedido_criado"] ?> cadastrado com sucesso.</p>
     <?php } ?>
 
     <?php if (isset($_GET["pagamento"])) { ?>
-    <p>Pagamento do pedido<?= (int) ($_GET["pedido_id"] ?? 0) ?>:<?= htmlspecialchars($_GET["pagamento"]) ?>.</p>
+    <p>Pagamento do pedido <?= (int) ($_GET["pedido_id"] ?? 0) ?>: <?= htmlspecialchars($_GET["pagamento"]) ?>.</p>
     <?php } ?>
 
     <?php if (isset($_GET["status_atualizado"])) { ?>

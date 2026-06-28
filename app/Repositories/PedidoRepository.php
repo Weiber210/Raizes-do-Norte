@@ -383,4 +383,136 @@ class PedidoRepository{
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function listarEstoque(?int $unidadeId = null): array
+    {
+    $sql = "
+        SELECT
+            e.id,
+            p.nome AS produto,
+            u.nome AS unidade,
+            e.quantidade,
+            e.ultima_atualizacao
+        FROM estoque e
+        INNER JOIN produtos p ON p.id = e.produto_id
+        INNER JOIN unidades u ON u.id = e.unidade_id
+    ";
+
+    if ($unidadeId !== null) {
+        $sql .= " WHERE e.unidade_id = :unidade_id";
+    }
+
+    $sql .= " ORDER BY u.nome, p.nome";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    if ($unidadeId !== null) {
+        $stmt->bindValue(
+            ":unidade_id",
+            $unidadeId,
+            PDO::PARAM_INT
+        );
+    }
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function consultarFidelidade(int $usuarioId): array|false
+    {
+    $sql = "
+        SELECT
+            u.id AS usuario_id,
+            u.nome,
+            COALESCE(f.pontos, 0) AS pontos,
+            f.data_ultima_atualizacao
+        FROM usuarios u
+        LEFT JOIN fidelidades f ON f.usuario_id = u.id
+        WHERE u.id = :usuario_id
+        AND u.perfil = :perfil
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":usuario_id", $usuarioId, PDO::PARAM_INT);
+    $stmt->bindValue(":perfil", "Cliente", PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function listarPagamentos(): array
+    {
+    $sql = "
+        SELECT
+            pg.id,
+            pg.pedido_id,
+            u.nome AS cliente,
+            pg.status,
+            pg.valor,
+            pg.forma_pagamento,
+            pg.data_pagamento
+        FROM pagamentos pg
+        INNER JOIN pedidos p ON p.id = pg.pedido_id
+        INNER JOIN usuarios u ON u.id = p.cliente_id
+        ORDER BY pg.id DESC
+    ";
+
+    $stmt = $this->pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function listarAuditoria(): array
+    {
+    $sql = "
+        SELECT
+            a.id,
+            u.nome AS usuario,
+            a.acao,
+            a.descricao,
+            a.data_hora
+        FROM auditoria a
+        INNER JOIN usuarios u ON u.id = a.usuario_id
+        ORDER BY a.id DESC
+    ";
+
+    $stmt = $this->pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obterIndicadoresDashboard(): array
+    {
+    $sql = "
+        SELECT
+            COUNT(*) FILTER (
+                WHERE created_at::date = CURRENT_DATE
+            ) AS pedidos_dia,
+            COUNT(*) FILTER (
+                WHERE DATE_TRUNC('month', created_at)
+                = DATE_TRUNC('month', CURRENT_DATE)
+            ) AS pedidos_mes,
+            COUNT(*) FILTER (
+                WHERE status IN (
+                    'AGUARDANDO_PAGAMENTO',
+                    'EM_PREPARO',
+                    'PRONTO'
+                )
+            ) AS pedidos_pendentes,
+            COALESCE(
+                (
+                    SELECT SUM(valor)
+                    FROM pagamentos
+                    WHERE status = 'APROVADO'
+                ),
+                0
+            ) AS faturamento
+        FROM pedidos
+    ";
+
+    $stmt = $this->pdo->query($sql);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

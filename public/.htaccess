@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^api/?$ api.php?rota=/ [QSA,L]
+RewriteRule ^api/(.*)$ api.php?rota=/$1 [QSA,L]

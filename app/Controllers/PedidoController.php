@@ -143,4 +143,62 @@ class PedidoController{
         $perfil
     );
     }
+
+    public function listarCardapio(): array
+    {
+    return $this->service->listarCardapio();
+    }
+
+    public function listarEstoque(array $filtros): array
+    {
+    $unidadeId = null;
+
+    if (
+        isset($filtros["unidadeId"]) &&
+        $filtros["unidadeId"] !== ""
+    ) {
+        $unidadeId = filter_var(
+            $filtros["unidadeId"],
+            FILTER_VALIDATE_INT
+        );
+
+        if ($unidadeId === false) {
+            throw new InvalidArgumentException(
+                "Unidade inválida."
+            );
+        }
+    }
+
+    return $this->service->listarEstoque($unidadeId);
+    }
+
+    public function consultarFidelidade(int $usuarioId): array
+    {
+    return $this->service->consultarFidelidade($usuarioId);
+    }
+
+    public function listarPagamentos(): array
+    {
+    return $this->service->listarPagamentos();
+    }
+
+    public function listarAuditoria(): array
+    {
+    return $this->service->listarAuditoria();
+    }
+
+    public function indicadoresDashboard(): array
+    {
+    return $this->service->obterIndicadoresDashboard();
+    }
+
+    public function cancelar(
+    int $pedidoId,
+    int $usuarioResponsavelId
+    ): string {
+    return $this->service->cancelarPedido(
+        $pedidoId,
+        $usuarioResponsavelId
+    );
+    }
 }

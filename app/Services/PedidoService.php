@@ -359,4 +359,108 @@ class PedidoService{
     }
     }
 
+    public function listarCardapio(): array
+    {
+    return $this->repository->listarProdutosDisponiveis();
+    }
+
+    public function listarEstoque(?int $unidadeId = null): array
+    {
+    if ($unidadeId !== null && $unidadeId <= 0) {
+        throw new InvalidArgumentException("Unidade inválida.");
+    }
+
+    return $this->repository->listarEstoque($unidadeId);
+    }
+
+    public function consultarFidelidade(int $usuarioId): array
+    {
+    if ($usuarioId <= 0) {
+        throw new InvalidArgumentException("Cliente inválido.");
+    }
+
+    $fidelidade = $this->repository->consultarFidelidade(
+        $usuarioId
+    );
+
+    if ($fidelidade === false) {
+        throw new RuntimeException("Cliente não encontrado.");
+    }
+
+    return $fidelidade;
+    }
+
+    public function listarPagamentos(): array
+    {
+    return $this->repository->listarPagamentos();
+    }
+
+    public function listarAuditoria(): array
+    {
+    return $this->repository->listarAuditoria();
+    }
+
+    public function obterIndicadoresDashboard(): array
+    {
+    return $this->repository->obterIndicadoresDashboard();
+    }
+
+    public function cancelarPedido(
+    int $pedidoId,
+    int $usuarioResponsavelId
+    ): string {
+    if ($pedidoId <= 0 || $usuarioResponsavelId <= 0) {
+        throw new InvalidArgumentException("Dados inválidos.");
+    }
+
+    $this->repository->iniciarTransacao();
+
+    try {
+        $pedido = $this->repository->buscarPedidoParaAtualizacao(
+            $pedidoId
+        );
+
+        if ($pedido === false) {
+            throw new RuntimeException("Pedido não encontrado.");
+        }
+
+        if ($pedido["status"] !== self::STATUS_INICIAL) {
+            throw new RuntimeException(
+                "Somente pedidos aguardando pagamento podem ser cancelados."
+            );
+        }
+
+        if (!$this->repository->devolverEstoqueDoPedido($pedidoId)) {
+            throw new RuntimeException(
+                "Não foi possível devolver o estoque."
+            );
+        }
+
+        if (
+            !$this->repository->atualizarStatusPedido(
+                $pedidoId,
+                "CANCELADO"
+            )
+        ) {
+            throw new RuntimeException(
+                "Não foi possível cancelar o pedido."
+            );
+        }
+
+        $this->repository->registrarAuditoria(
+            $usuarioResponsavelId,
+            "CANCELAR_PEDIDO",
+            "Pedido número " . $pedidoId . " cancelado."
+        );
+
+        $this->repository->confirmarTransacao();
+
+        return "CANCELADO";
+    } catch (Throwable $erro) {
+        $this->repository->desfazerTransacao();
+
+        throw $erro;
+    }
+    }
+
 }
