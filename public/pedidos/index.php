@@ -25,6 +25,13 @@ $pedidos = $controller->listar($_GET);
 </head>
 <body>
     <H1>Pedidos</H1>
+    <?php if (isset($_GET["pedido_criado"])) { ?>
+    <p>
+        Pedido número
+        <?= (int) $_GET["pedido_criado"] ?>
+        cadastrado com sucesso.
+    </p>
+    <?php } ?>
     
         <a href="cadastrar.php"><button>Novo Pedido</button></a>
         <a href="../dashboard.php"><button>Voltar</button></a>
