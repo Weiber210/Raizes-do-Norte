@@ -67,7 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <label>Perfil:</label><br>
         <select name="perfil">
             <option value="Administrador" <?= ($usuario['perfil'] == 'Administrador') ? 'selected' : '' ?>>Administrador</option>
-            <option value="Usuário" <?= ($usuario['perfil'] == 'Usuário') ? 'selected' : '' ?>>Usuário</option>
+            <option value="Gerente" <?= ($usuario["perfil"] == "Gerente") ? "selected" : "" ?>>Gerente</option>
+            <option value="Atendente" <?= ($usuario["perfil"] == "Atendente") ? "selected" : "" ?>>Atendente</option>
+            <option value="Cozinha" <?= ($usuario["perfil"] == "Cozinha") ? "selected" : "" ?>>Cozinha</option>
+        <option value="Cliente" <?= ($usuario["perfil"] == "Cliente") ? "selected" : "" ?>>Cliente</option>
         </select><br><br>
 
         <label>Consentimento LGPD:</label><br>
