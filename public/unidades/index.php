@@ -25,7 +25,7 @@ $unidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <H1>Unidades</H1>
     
-        <a href="cadastrar.php"><button>Novo Unidade</button></a>
+        <a href="cadastrar.php"><button>Nova Unidade</button></a>
         <a href="../dashboard.php"><button>Voltar</button></a>
 
         <br><br> 
@@ -55,7 +55,7 @@ $unidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </td>
                 <td class="actions">
                     <a href="editar.php?id=<?= $unidade['id'] ?>"><button>Editar</button></a>
-                    <a onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $unidade['id'] ?>"><button>Excluir</button></a>
+                    <a onclick="return confirm('Tem certeza que deseja excluir esta Unidade?');" href="excluir.php?id=<?= $unidade['id'] ?>"><button>Excluir</button></a>
                 </td>
         </tr>
             <?php } ?>

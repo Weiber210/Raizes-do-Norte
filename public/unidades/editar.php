@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <input type="text" name="nome" value="<?= $unidade['nome'] ?>" required><br><br>
 
         <label>Cidade:</label><br>
-        <input type="text" id="cidade" name="cidade" value= "<?= $unidade['cidade']?>" required><br><br>
+        <input type="text" id="cidade" name="cidade" value="<?= $unidade['cidade']?>" required><br><br>
 
             <label>Estado:</label><br>
         <select name="estado">
