@@ -21,14 +21,11 @@ if (isset($_SESSION["ultimo_acesso"]) && (time() - $_SESSION["ultimo_acesso"]) >
 
 $_SESSION["ultimo_acesso"] = time();
 
-http_response_code(200);
- // Bloqueios de acesso com base no perfil do usuário
-
-/*if ($_SESSION["perfil"] !== "Administrador") {
-    // Redirecionar para uma página de acesso negado ou exibir uma mensagem de erro
-    echo "Acesso negado. Você não tem permissão para acessar esta página.";
+if (($_SESSION["perfil"] ?? "") === "Cliente") {
+    http_response_code(403);
+    echo "Acesso negado ao painel administrativo.";
     exit;
 }
-*/
 
-?>
+
+http_response_code(200);

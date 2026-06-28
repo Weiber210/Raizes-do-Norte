@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,7 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Perfil:</label><br>
         <select name="perfil">
             <option value="Administrador">Administrador</option>
-            <option value="Usuário">Usuário</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Atendente">Atendente</option>
+            <option value="Cozinha">Cozinha</option>
+            <option value="Cliente">Cliente</option>
         </select><br><br>
 
         <label>Consentimento LGPD:</label><br>

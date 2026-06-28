@@ -10,7 +10,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
 ?>
 
-//Verificar Login
 <script>
     fetch('auth/verificar.php')
         .then(response => {
