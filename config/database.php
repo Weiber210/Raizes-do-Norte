@@ -1,5 +1,3 @@
-
-
 <?php
 //localização e conexão com o banco de dados
 require_once "env.php";
@@ -27,4 +25,3 @@ catch(Exception $erro){
 // Mostrar mensagem
 die("ERRO AO CONECTAR AO BANCO DE DADOS: ".$erro->getMessage());
 }
-?>*/

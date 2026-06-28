@@ -42,7 +42,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         <li><a href="produtos/index.php"><button>Produtos</button></a></li>
         <li><a href="usuarios/index.php"><button>Usuários</button></a></li>
         <li><a href="unidades/index.php"><button>Unidades</button></a></li>
-        <li>Pedidos</li>
+        <li><a href="pedidos/index.php"><button>Pedidos</button></a></li>
         <li>Pagamentos</li>
     </ul>
     
