@@ -39,9 +39,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <hr>
     <h2>Menu</h2>
     <ul>
-        <a href="produtos/index.php"><button>Produtos</button></a><br><br>
-        <a href="usuarios/index.php"><button>Usuários</button></a>
-        <li>Unidades</li>
+        <li><a href="produtos/index.php"><button>Produtos</button></a></li>
+        <li><a href="usuarios/index.php"><button>Usuários</button></a></li>
+        <li><a href="unidades/index.php"><button>Unidades</button></a></li>
         <li>Pedidos</li>
         <li>Pagamentos</li>
     </ul>

@@ -1,4 +1,3 @@
-
 <?php
 //  Conectando com o banco de dados
 require_once '../config/database.php';
@@ -24,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["perfil"] = $usuario["perfil"];
         $_SESSION["ultimo_acesso"] = time();
 
-        header("Location: dashboard.php");
+        header("Location: /Raizes-do-Norte/public/dashboard.php");
         exit;
 
     } else {
@@ -39,6 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>body {
+            background-color: #121212;
+            color: #ffffff;/
+            font-family: Arial, sans-serif;
+        }</style>
 </head>
 <body>
     <h2>Raízes do Norte</h2>
@@ -52,3 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+
+
+
