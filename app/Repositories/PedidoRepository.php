@@ -1,7 +1,6 @@
 <?php
 class PedidoRepository{
-
-    // Adicionar WHERE quando $canal estiver preenchido
+    
     public function __construct(private PDO $pdo)
     {}
     public function listar(?string $canal = null): array
@@ -259,5 +258,89 @@ class PedidoRepository{
     $stmt->bindValue(":acao", $acao, PDO::PARAM_STR);
     $stmt->bindValue(":descricao", $descricao, PDO::PARAM_STR);
     $stmt->execute();
+    }
+    
+    public function buscarPedidoParaPagamento(int $pedidoId): array|false
+    {
+    $sql = "
+        SELECT id, status, valor_total, forma_pagamento
+        FROM pedidos
+        WHERE id = :pedido_id
+        FOR UPDATE
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function registrarPagamento(
+    int $pedidoId,
+    string $status,
+    string $valor,
+    string $formaPagamento
+    ): void {
+    $sql = "
+        INSERT INTO pagamentos (
+            pedido_id,
+            status,
+            valor,
+            forma_pagamento
+        )
+        VALUES (
+            :pedido_id,
+            :status,
+            :valor,
+            :forma_pagamento
+        )
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->bindValue(":status", $status, PDO::PARAM_STR);
+    $stmt->bindValue(":valor", $valor, PDO::PARAM_STR);
+    $stmt->bindValue(
+        ":forma_pagamento",
+        $formaPagamento,
+        PDO::PARAM_STR
+    );
+    $stmt->execute();
+    }
+    public function atualizarStatusPedido(
+    int $pedidoId,
+    string $status
+    ): bool {
+    $sql = "
+        UPDATE pedidos
+        SET status = :status
+        WHERE id = :pedido_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":status", $status, PDO::PARAM_STR);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->rowCount() === 1;
+    }
+    public function devolverEstoqueDoPedido(int $pedidoId): bool
+    {
+    $sql = "
+        UPDATE estoque e
+        SET quantidade = e.quantidade + i.quantidade,
+            ultima_atualizacao = CURRENT_TIMESTAMP
+        FROM itens_pedido i
+        INNER JOIN pedidos p ON p.id = i.pedido_id
+        WHERE p.id = :pedido_id
+        AND e.produto_id = i.produto_id
+        AND e.unidade_id = p.unidade_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
     }
 }

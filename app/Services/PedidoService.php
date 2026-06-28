@@ -15,7 +15,12 @@ class PedidoService{
     "PIX"
     ];
 
-    private const STATUS_INICIAL = "AGUARDANDO PAGAMENTO";
+    private const STATUS_INICIAL = "AGUARDANDO_PAGAMENTO";
+
+    private const RESULTADOS_PAGAMENTO = [
+    "APROVADO",
+    "RECUSADO"
+    ];
 
     public function __construct(private PedidoRepository $repository)
     {}
@@ -152,6 +157,105 @@ class PedidoService{
     $this->repository->desfazerTransacao();
 
     throw $erro;
+    }
+    }
+
+    public function processarPagamento(
+    int $pedidoId,
+    string $resultado,
+    int $usuarioResponsavelId
+    ): string {
+    // Processa a resposta simulada do gateway de pagamento.
+    $resultado = strtoupper(trim($resultado));
+
+    if ($pedidoId <= 0 || $usuarioResponsavelId <= 0) {
+        throw new InvalidArgumentException(
+            "Dados do pagamento inválidos."
+        );
+    }
+
+    if (
+        !in_array(
+            $resultado,
+            self::RESULTADOS_PAGAMENTO,
+            true
+        )
+    ) {
+        throw new InvalidArgumentException(
+            "Resultado do pagamento inválido."
+        );
+    }
+
+    $this->repository->iniciarTransacao();
+
+    try {
+        $pedido = $this->repository->buscarPedidoParaPagamento(
+            $pedidoId
+        );
+
+        if ($pedido === false) {
+            throw new RuntimeException("Pedido não encontrado.");
+        }
+
+        if ($pedido["status"] !== self::STATUS_INICIAL) {
+            throw new RuntimeException(
+                "O pedido não está aguardando pagamento."
+            );
+        }
+
+        $this->repository->registrarPagamento(
+            $pedidoId,
+            $resultado,
+            $pedido["valor_total"],
+            $pedido["forma_pagamento"]
+        );
+
+        if ($resultado === "APROVADO") {
+            $novoStatus = "EM_PREPARO";
+        } else {
+            $novoStatus = "CANCELADO";
+
+            $estoqueDevolvido =
+                $this->repository->devolverEstoqueDoPedido(
+                    $pedidoId
+                );
+
+            if (!$estoqueDevolvido) {
+                throw new RuntimeException(
+                    "Não foi possível devolver o estoque."
+                );
+            }
+        }
+
+        $statusAtualizado =
+            $this->repository->atualizarStatusPedido(
+                $pedidoId,
+                $novoStatus
+            );
+
+        if (!$statusAtualizado) {
+            throw new RuntimeException(
+                "Não foi possível atualizar o pedido."
+            );
+        }
+
+        $this->repository->registrarAuditoria(
+            $usuarioResponsavelId,
+            "PROCESSAR_PAGAMENTO",
+            "Pagamento do pedido número "
+                . $pedidoId
+                . ": "
+                . $resultado
+                . "."
+        );
+
+        $this->repository->confirmarTransacao();
+
+        return $novoStatus;
+    } catch (Throwable $erro) {
+        $this->repository->desfazerTransacao();
+
+        throw $erro;
     }
     }
 }

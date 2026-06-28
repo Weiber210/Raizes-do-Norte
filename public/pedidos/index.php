@@ -32,6 +32,19 @@ $pedidos = $controller->listar($_GET);
         cadastrado com sucesso.
     </p>
     <?php } ?>
+    <?php if (isset($_GET["pagamento"])) { ?>
+    <p>
+        Pagamento do pedido
+        <?= (int) ($_GET["pedido_id"] ?? 0) ?>:
+        <?= htmlspecialchars($_GET["pagamento"]) ?>.
+    </p>
+    <?php } ?>
+
+    <?php if (isset($_GET["erro_pagamento"])) { ?>
+    <p>
+        <?= htmlspecialchars($_GET["erro_pagamento"]) ?>
+    </p>
+    <?php } ?>
     
         <a href="cadastrar.php"><button>Novo Pedido</button></a>
         <a href="../dashboard.php"><button>Voltar</button></a>
@@ -74,6 +87,16 @@ $pedidos = $controller->listar($_GET);
                 <td class="actions">
                     <a href="editar.php?id=<?= $pedido['id'] ?>"><button>Editar</button></a>
                     <a onclick="return confirm('Tem certeza que deseja excluir este pedido?');" href="excluir.php?id=<?= $pedido['id'] ?>"><button>Excluir</button></a>
+                    <?php if ($pedido["status"] === "AGUARDANDO_PAGAMENTO") { ?>
+                    
+                    <form method="POST" action="../pagamentos/processar.php" style="display: inline;">
+                        <input type="hidden" name="pedido_id" value="<?= (int) $pedido["id"] ?>">
+
+                        <button type="submit" name="resultado" value="APROVADO">Aprovar pagamento</button>
+                        <button type="submit" name="resultado" value="RECUSADO">Recusar pagamento</button>
+
+                    </form>
+                    <?php } ?>
                 </td>
         </tr>
             <?php } ?>

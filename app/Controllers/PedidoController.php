@@ -85,4 +85,36 @@ class PedidoController{
         $usuarioResponsavelId
     );
     }
+
+    public function processarPagamento(
+    array $dados,
+    int $usuarioResponsavelId
+    ): string {
+    // Valida a entrada do mock e encaminha ao serviço.
+    if (
+        !isset($dados["pedido_id"]) ||
+        !isset($dados["resultado"])
+    ) {
+        throw new InvalidArgumentException(
+            "Dados do pagamento não informados."
+        );
+    }
+
+    $pedidoId = filter_var(
+        $dados["pedido_id"],
+        FILTER_VALIDATE_INT
+    );
+
+    if ($pedidoId === false) {
+        throw new InvalidArgumentException(
+            "Identificador do pedido inválido."
+        );
+    }
+
+    return $this->service->processarPagamento(
+        $pedidoId,
+        $dados["resultado"],
+        $usuarioResponsavelId
+    );
+    }
 }

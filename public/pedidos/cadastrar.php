@@ -53,12 +53,13 @@ $produtos = $dados["produtos"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Pedido</title>
-    <?php if ($mensagemErro !== "") { ?>
-    <p><?= htmlspecialchars($mensagemErro) ?></p>
-    <?php } ?>
 </head>
 <body>
     <h1>Cadastrar Pedido</h1>
+    <?php if ($mensagemErro !== "") { ?>
+    <p><?= htmlspecialchars($mensagemErro) ?></p>
+    <?php } ?>
+    
     <form method="POST">
         <label>Cliente:</label><br>
         <select name="cliente_id" required>
