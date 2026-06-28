@@ -343,4 +343,44 @@ class PedidoRepository{
 
     return $stmt->rowCount() > 0;
     }
+
+    public function buscarPedidoPorId(int $pedidoId): array|false
+    {
+    $sql = "
+        SELECT
+            p.id,
+            u.nome AS cliente,
+            un.nome AS unidade,
+            p.status,
+            p.canal_pedido,
+            p.forma_pagamento,
+            p.valor_total
+        FROM pedidos p
+        INNER JOIN usuarios u ON u.id = p.cliente_id
+        INNER JOIN unidades un ON un.id = p.unidade_id
+        WHERE p.id = :pedido_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarPedidoParaAtualizacao(int $pedidoId): array|false
+    {
+    $sql = "
+        SELECT id, status
+        FROM pedidos
+        WHERE id = :pedido_id
+        FOR UPDATE
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(":pedido_id", $pedidoId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

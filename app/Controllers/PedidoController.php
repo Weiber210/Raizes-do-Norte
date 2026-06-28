@@ -117,4 +117,30 @@ class PedidoController{
         $usuarioResponsavelId
     );
     }
+
+    public function formularioEdicao(int $pedidoId): array
+    {
+    return $this->service->obterPedidoParaEdicao($pedidoId);
+    }
+
+    public function atualizarStatus(array $dados, int $usuarioResponsavelId, string $perfil): string
+    {
+    // Valida a entrada e encaminha a atualização ao serviço.
+    if (!isset($dados["pedido_id"]) || !isset($dados["novo_status"])) {
+        throw new InvalidArgumentException("Dados da atualização não informados.");
+    }
+
+    $pedidoId = filter_var($dados["pedido_id"], FILTER_VALIDATE_INT);
+
+    if ($pedidoId === false) {
+        throw new InvalidArgumentException("Identificador do pedido inválido.");
+    }
+
+    return $this->service->atualizarStatus(
+        $pedidoId,
+        $dados["novo_status"],
+        $usuarioResponsavelId,
+        $perfil
+    );
+    }
 }

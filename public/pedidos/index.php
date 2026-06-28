@@ -25,25 +25,21 @@ $pedidos = $controller->listar($_GET);
 </head>
 <body>
     <H1>Pedidos</H1>
+
     <?php if (isset($_GET["pedido_criado"])) { ?>
-    <p>
-        Pedido número
-        <?= (int) $_GET["pedido_criado"] ?>
-        cadastrado com sucesso.
-    </p>
+    <p>Pedido número<?= (int) $_GET["pedido_criado"] ?>cadastrado com sucesso.</p>
     <?php } ?>
+
     <?php if (isset($_GET["pagamento"])) { ?>
-    <p>
-        Pagamento do pedido
-        <?= (int) ($_GET["pedido_id"] ?? 0) ?>:
-        <?= htmlspecialchars($_GET["pagamento"]) ?>.
-    </p>
+    <p>Pagamento do pedido<?= (int) ($_GET["pedido_id"] ?? 0) ?>:<?= htmlspecialchars($_GET["pagamento"]) ?>.</p>
+    <?php } ?>
+
+    <?php if (isset($_GET["status_atualizado"])) { ?>
+    <p>Pedido número <?= (int) $_GET["status_atualizado"] ?> atualizado com sucesso.</p>
     <?php } ?>
 
     <?php if (isset($_GET["erro_pagamento"])) { ?>
-    <p>
-        <?= htmlspecialchars($_GET["erro_pagamento"]) ?>
-    </p>
+    <p><?= htmlspecialchars($_GET["erro_pagamento"]) ?></p>
     <?php } ?>
     
         <a href="cadastrar.php"><button>Novo Pedido</button></a>
@@ -85,7 +81,9 @@ $pedidos = $controller->listar($_GET);
                 <td><?= $pedido['forma_pagamento'] ?></td>
                 <td>R$ <?= number_format($pedido['valor_total'], 2, ',', '.') ?></td>
                 <td class="actions">
-                    <a href="editar.php?id=<?= $pedido['id'] ?>"><button>Editar</button></a>
+                    <?php if (in_array($pedido["status"], ["EM_PREPARO", "PRONTO"], true)) { ?>
+                    <a href="editar.php?id=<?= (int) $pedido["id"] ?>"><button>Atualizar status</button></a>
+                    <?php } ?>
                     <a onclick="return confirm('Tem certeza que deseja excluir este pedido?');" href="excluir.php?id=<?= $pedido['id'] ?>"><button>Excluir</button></a>
                     <?php if ($pedido["status"] === "AGUARDANDO_PAGAMENTO") { ?>
                     

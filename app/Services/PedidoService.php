@@ -22,6 +22,24 @@ class PedidoService{
     "RECUSADO"
     ];
 
+    private const TRANSICOES_STATUS = [
+    "EM_PREPARO" => "PRONTO",
+    "PRONTO" => "ENTREGUE"
+    ];
+
+    private const PERFIS_POR_STATUS = [
+    "PRONTO" => [
+        "Administrador",
+        "Gerente",
+        "Cozinha"
+    ],
+    "ENTREGUE" => [
+        "Administrador",
+        "Gerente",
+        "Atendente"
+    ]
+    ];
+
     public function __construct(private PedidoRepository $repository)
     {}
     
@@ -258,4 +276,87 @@ class PedidoService{
         throw $erro;
     }
     }
+
+    public function obterPedidoParaEdicao(int $pedidoId): array
+    {
+    if ($pedidoId <= 0) {
+        throw new InvalidArgumentException("Pedido inválido.");
+    }
+
+    $pedido = $this->repository->buscarPedidoPorId($pedidoId);
+
+    if ($pedido === false) {
+        throw new RuntimeException("Pedido não encontrado.");
+    }
+
+    $pedido["proximo_status"] = self::TRANSICOES_STATUS[$pedido["status"]] ?? null;
+
+    return $pedido;
+    }
+
+    public function atualizarStatus(
+    int $pedidoId,
+    string $novoStatus,
+    int $usuarioResponsavelId,
+    string $perfil
+    ): string {
+    // Valida a transição e atualiza o status do pedido.
+    $novoStatus = strtoupper(trim($novoStatus));
+    $perfil = trim($perfil);
+
+    if ($pedidoId <= 0 || $usuarioResponsavelId <= 0) {
+        throw new InvalidArgumentException("Dados do pedido inválidos.");
+    }
+
+    $this->repository->iniciarTransacao();
+
+    try {
+        $pedido = $this->repository->buscarPedidoParaAtualizacao($pedidoId);
+
+        if ($pedido === false) {
+            throw new RuntimeException("Pedido não encontrado.");
+        }
+
+        $statusAtual = $pedido["status"];
+        $statusPermitido = self::TRANSICOES_STATUS[$statusAtual] ?? null;
+
+        if ($statusPermitido === null) {
+            throw new RuntimeException("O pedido não permite nova atualização.");
+        }
+
+        if ($novoStatus !== $statusPermitido) {
+            throw new RuntimeException("Transição de status inválida.");
+        }
+
+        $perfisPermitidos = self::PERFIS_POR_STATUS[$novoStatus] ?? [];
+
+        if (!in_array($perfil, $perfisPermitidos, true)) {
+            throw new RuntimeException("Perfil sem permissão para atualizar este status.");
+        }
+
+        $atualizado = $this->repository->atualizarStatusPedido(
+            $pedidoId,
+            $novoStatus
+        );
+
+        if (!$atualizado) {
+            throw new RuntimeException("Não foi possível atualizar o status.");
+        }
+
+        $this->repository->registrarAuditoria(
+            $usuarioResponsavelId,
+            "ATUALIZAR_STATUS_PEDIDO",
+            "Pedido número " . $pedidoId . " atualizado para " . $novoStatus . "."
+        );
+
+        $this->repository->confirmarTransacao();
+
+        return $novoStatus;
+    } catch (Throwable $erro) {
+        $this->repository->desfazerTransacao();
+
+        throw $erro;
+    }
+    }
+
 }
