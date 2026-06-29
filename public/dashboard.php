@@ -19,7 +19,4 @@ require __DIR__ . "/componentes/cabecalho.php";
     <p>Perfil: <?php echo $_SESSION["perfil"]; ?></p>
 
     <hr>
-
-
-
 <?php require __DIR__ . "/componentes/rodape.php"; ?>
