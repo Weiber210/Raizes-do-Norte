@@ -1,6 +1,9 @@
 <?php
-
 require_once "../auth/verificar.php";
+
+// Permissão
+autorizarPerfis(["Administrador","Gerente","Atendente"]);
+
 require_once "../../config/database.php";
 require_once "../../app/Repositories/PedidoRepository.php";
 require_once "../../app/Services/PedidoService.php";

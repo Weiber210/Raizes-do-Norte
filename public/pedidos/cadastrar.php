@@ -52,40 +52,36 @@ $unidades = $dados["unidades"];
 $produtos = $dados["produtos"];
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Pedido</title>
-</head>
-<body>
-    <h1>Cadastrar Pedido</h1>
+<?php
+$tituloPagina = "Cadastrar Pedido";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Cadastrar Pedido</h1>
     <?php if ($mensagemErro !== "") { ?>
     <p><?= htmlspecialchars($mensagemErro) ?></p>
     <?php } ?>
     
     <form method="POST">
         <label>Cliente:</label><br>
-        <select name="cliente_id" required>
+        <select class="form-select" name="cliente_id" required>
             <?php foreach ($clientes as $cliente) { ?>
                 <option value="<?= $cliente["id"] ?>">
-                    <?= htmlspecialchars($cliente["nome"]) ?>
+                <?= htmlspecialchars($cliente["nome"]) ?>
                 </option>
             <?php } ?>
         </select><br><br>
 
          <label>Unidade:</label><br>
-        <select name="unidade_id" required>
+        <select class="form-select" name="unidade_id" required>
             <?php foreach ($unidades as $unidade) { ?>
                 <option value="<?= $unidade["id"] ?>">
-                    <?= htmlspecialchars($unidade["nome"]) ?>
+                <?= htmlspecialchars($unidade["nome"]) ?>
                 </option>
             <?php } ?>
         </select><br><br>
 
         <label>Canal do pedido:</label><br>
-        <select name="canal_pedido" required>
+        <select class="form-select" name="canal_pedido" required>
             <option value="APP">APP</option>
             <option value="WEB">WEB</option>
             <option value="TOTEM">TOTEM</option>
@@ -94,27 +90,26 @@ $produtos = $dados["produtos"];
         </select><br><br>
 
         <label>Produto:</label><br>
-        <select name="produto_id" required>
+        <select class="form-select" name="produto_id" required>
             <?php foreach ($produtos as $produto) { ?>
                 <option value="<?= $produto["id"] ?>">
-                    <?= htmlspecialchars($produto["nome"]) ?>
-                    — R$ <?= number_format($produto["preco"], 2, ",", ".") ?>
+                <?= htmlspecialchars($produto["nome"]) ?>
+                — R$ <?= number_format($produto["preco"], 2, ",", ".") ?>
                 </option>
             <?php } ?>
         </select><br><br>
 
         <label>Quantidade:</label><br>
-        <input type="number" name="quantidade" min="1" required><br><br>
+        <input class="form-control" type="number" name="quantidade" min="1" required><br><br>
 
         <label>Forma de pagamento:</label><br>
-        <select name="forma_pagamento" required>
+        <select class="form-select" name="forma_pagamento" required>
             <option value="DEBITO">Débito</option>
             <option value="CREDITO">Crédito</option>
             <option value="PIX">PIX</option>
         </select><br><br>
 
-        <button type="submit">Cadastrar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
     </form>
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

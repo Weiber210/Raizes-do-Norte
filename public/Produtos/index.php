@@ -19,22 +19,18 @@ $stmt = $pdo->query($sql);
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-</head>
-<body>
-    <H1>Produtos</H1>
+<?php
+$tituloPagina = "Produtos";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Produtos</H1>
     
-        <a href="cadastrar.php"><button>Novo Produto</button></a>
-        <a href="../dashboard.php"><button>Voltar</button></a>
+        <a class="btn btn-primary" href="cadastrar.php">Novo Produto</a>
+        <a class="btn btn-secondary" href="../dashboard.php">Voltar</a>
 
         <br><br> 
-
-    <table border="1" cellpadding="8">
+    <div class="table-responsive mt-4">
+    <table class="table table-striped table-hover align-middle">
         <tr>
             <th>ID</th>
             <th>Nome</th>
@@ -64,5 +60,5 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
             <?php } ?>
     </table>
-</body>
-</html>
+    </div>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

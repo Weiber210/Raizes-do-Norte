@@ -49,27 +49,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuário</title>
-</head>
-<body>
-    <h1>Editar Usuário</h1>
+<?php
+$tituloPagina = "Editar Usuarios";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Editar Usuário</h1>
     <form method="POST">
 
      
 
         <label>Nome:</label><br>
-        <input type="text" name="nome" value="<?= $usuario['nome'] ?>"><br><br>
+        <input class="form-control" type="text" name="nome" value="<?= $usuario['nome'] ?>"><br><br>
 
         <label>Email:</label><br>
-        <input type="email" name="email" value="<?= $usuario['email'] ?>"><br><br>
+        <input class="form-control" type="email" name="email" value="<?= $usuario['email'] ?>"><br><br>
 
         <label>Perfil:</label><br>
-        <select name="perfil">
+        <select class="form-select" name="perfil">
             <option value="Administrador" <?= ($usuario['perfil'] == 'Administrador') ? 'selected' : '' ?>>Administrador</option>
             <option value="Gerente" <?= ($usuario["perfil"] == "Gerente") ? "selected" : "" ?>>Gerente</option>
             <option value="Atendente" <?= ($usuario["perfil"] == "Atendente") ? "selected" : "" ?>>Atendente</option>
@@ -78,17 +74,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </select><br><br>
 
         <label>Consentimento LGPD:</label><br>
-        <select name="consentimento_lgpd">
+        <select class="form-select" name="consentimento_lgpd">
             <option value="true" <?= ($usuario['consentimento_lgpd'] == true) ? 'selected' : '' ?>>Sim</option>
             <option value="false" <?= ($usuario['consentimento_lgpd'] == false) ? 'selected' : '' ?>>Não</option>
         </select><br><br>
 
         <label>Senha:</label><br>
-        <input type="password" name="senha"><br><br>
+        <input class="form-control" type="password" name="senha"><br><br>
 
-        <button type="submit">Salvar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
 
      </form>
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

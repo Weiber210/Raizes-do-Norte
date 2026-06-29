@@ -45,24 +45,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Usuário</title>
-</head>
-<body>
-    <h1>Cadastrar Usuário</h1>
+<?php
+$tituloPagina = "Cadastrar Usuarios";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Cadastrar Usuário</h1>
     <form method="POST">
         <label>Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
+        <input class="form-control" class="form-control" type="text" id="nome" name="nome" required><br><br>
 
         <label>Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
+        <input class="form-control" type="email" id="email" name="email" required><br><br>
 
         <label>Perfil:</label><br>
-        <select name="perfil">
+        <select class="form-select" name="perfil">
             <option value="Administrador">Administrador</option>
             <option value="Gerente">Gerente</option>
             <option value="Atendente">Atendente</option>
@@ -71,16 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select><br><br>
 
         <label>Consentimento LGPD:</label><br>
-        <select name="consentimento_lgpd">
+        <select class="form-select" name="consentimento_lgpd">
             <option value="true">Sim</option>
             <option value="false">Não</option>
         </select><br><br>
 
         <label>Senha:</label><br>
-        <input type="password" id="senha" name="senha" required><br><br>
+        <input class="form-control" type="password" id="senha" name="senha" required><br><br>
 
-        <button type="submit">Cadastrar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
     </form>
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

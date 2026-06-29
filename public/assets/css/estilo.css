@@ -1,0 +1,40 @@
+body {
+    background-color: #f5f3ee;
+    color: #2f2f2f;
+}
+
+.navbar {
+    background-color: #6f3d20;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #f4c95d;
+}
+
+.card {
+    border: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.table {
+    background-color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #9a5a2e;
+    border-color: #9a5a2e;
+}
+
+.btn-primary:hover {
+    background-color: #75401f;
+    border-color: #75401f;
+}
+
+.titulo-pagina {
+    color: #6f3d20;
+}

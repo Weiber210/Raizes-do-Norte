@@ -48,38 +48,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Produto</title>
-</head>
-<body>
-    <h1>Editar</h1>
+<?php
+$tituloPagina = "Editar Produtos";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+
+    <h1 class="titulo-pagina mb-4">Editar</h1>
     <form method="POST">
 
      
 
         <label>Nome:</label><br>
-        <input type="text" name="nome" value="<?= $produto['nome'] ?>" required><br><br>
+        <input class="form-control" type="text" name="nome" value="<?= $produto['nome'] ?>" required><br><br>
 
         <label>Descrição:</label><br>
-        <textarea name="descricao" required><?= $produto['descricao'] ?></textarea><br><br>
+        <textarea class="form-control"></textarea name="descricao" required><?= $produto['descricao'] ?></textarea><br><br>
 
         <label>Preço:</label><br>
-        <input type="number" step="0.01" name="preco" value="<?= $produto['preco'] ?>" required><br><br>
+        <input class="form-control" type="number" step="0.01" name="preco" value="<?= $produto['preco'] ?>" required><br><br>
 
         <label>Status:</label><br>
-        <select name="ativo" required>
+        <select class="form-select" name="ativo" required>
 
             <option value="true" <?= ($produto['ativo'] == true) ? 'selected' : '' ?>>Ativo</option>
             <option value="false" <?= ($produto['ativo'] == false) ? 'selected' : '' ?>> Inativo</option>
         </select><br><br>
 
-        <button type="submit">Salvar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
 
      </form>
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

@@ -49,17 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit("Pedido não encontrado.");
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atualizar o Status</title>
-</head>
-<body>
-
-    <h1>Atualizar Status</h1>
+<?php
+$tituloPagina = "Editar Pedidos";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Atualizar Status</h1>
     
     <?php if ($mensagemErro !== "") { ?>
     <p><?= htmlspecialchars($mensagemErro) ?></p>
@@ -72,17 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <?php if ($pedido["proximo_status"] !== null) { ?>
         <form method="POST">
-            <input type="hidden" name="pedido_id" value="<?= (int) $pedido["id"] ?>">
-            <input type="hidden" name="novo_status" value="<?= htmlspecialchars($pedido["proximo_status"]) ?>">
-            <button type="submit">Atualizar para <?= htmlspecialchars(str_replace("_", " ", $pedido["proximo_status"])) ?></button>
+            <input class="form-control" type="hidden" name="pedido_id" value="<?= (int) $pedido["id"] ?>">
+            <input class="form-control" type="hidden" name="novo_status" value="<?= htmlspecialchars($pedido["proximo_status"]) ?>">
+            <button class="btn btn-primary" type="submit">Atualizar para <?= htmlspecialchars(str_replace("_", " ", $pedido["proximo_status"])) ?></button>
         </form>
     <?php } else { ?>
-        <p>Este pedido não permite nova atualização de status.</p>
+    <p>Este pedido não permite nova atualização de status.</p>
     <?php } ?>
 
     <br>
-    <a href="index.php">Voltar</a>
+    <a class="btn btn-secondary" href="index.php">Voltar</a>
 
-
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

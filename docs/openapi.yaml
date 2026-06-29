@@ -1,0 +1,298 @@
+openapi: 3.0.3
+
+info:
+  title: API Raízes do Nordeste
+  version: 1.0.0
+  description: API de gestão de pedidos, estoque, pagamentos e fidelidade.
+
+servers:
+  - url: http://localhost/Raizes-do-Norte/public/api
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Erro:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items: {}
+        timestamp:
+          type: string
+        path:
+          type: string
+
+    Login:
+      type: object
+      required:
+        - email
+        - senha
+      properties:
+        email:
+          type: string
+          format: email
+        senha:
+          type: string
+          format: password
+
+    Pedido:
+      type: object
+      required:
+        - cliente_id
+        - unidade_id
+        - produto_id
+        - quantidade
+        - canal_pedido
+        - forma_pagamento
+      properties:
+        cliente_id:
+          type: integer
+        unidade_id:
+          type: integer
+        produto_id:
+          type: integer
+        quantidade:
+          type: integer
+          minimum: 1
+        canal_pedido:
+          type: string
+          enum:
+            - APP
+            - WEB
+            - TOTEM
+            - BALCAO
+            - PICKUP
+        forma_pagamento:
+          type: string
+          enum:
+            - DEBITO
+            - CREDITO
+            - PIX
+
+paths:
+  /auth/login:
+    post:
+      summary: Realiza autenticação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: Login realizado
+        "401":
+          description: Credenciais inválidas
+        "422":
+          description: Dados inválidos
+
+  /produtos:
+    get:
+      summary: Consulta o cardápio
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Produtos disponíveis
+        "401":
+          description: Não autenticado
+
+  /pedidos:
+    get:
+      summary: Lista pedidos
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: canalPedido
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Lista de pedidos
+        "401":
+          description: Não autenticado
+        "403":
+          description: Sem permissão
+
+    post:
+      summary: Cadastra um pedido
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pedido"
+      responses:
+        "201":
+          description: Pedido cadastrado
+        "401":
+          description: Não autenticado
+        "403":
+          description: Sem permissão
+        "422":
+          description: Dados inválidos
+
+  /pedidos/{id}:
+    get:
+      summary: Consulta um pedido
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Pedido encontrado
+        "404":
+          description: Pedido não encontrado
+
+    delete:
+      summary: Cancela um pedido
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Pedido cancelado
+        "409":
+          description: Pedido não permite cancelamento
+
+  /pedidos/{id}/pagamentos:
+    post:
+      summary: Processa pagamento mock
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resultado
+              properties:
+                resultado:
+                  type: string
+                  enum:
+                    - APROVADO
+                    - RECUSADO
+      responses:
+        "200":
+          description: Pagamento aprovado
+        "402":
+          description: Pagamento recusado
+        "409":
+          description: Pagamento já processado
+
+  /pedidos/{id}/status:
+    patch:
+      summary: Atualiza o status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - novo_status
+              properties:
+                novo_status:
+                  type: string
+                  enum:
+                    - PRONTO
+                    - ENTREGUE
+      responses:
+        "200":
+          description: Status atualizado
+        "403":
+          description: Perfil sem permissão
+        "409":
+          description: Transição inválida
+
+  /estoque:
+    get:
+      summary: Consulta o estoque
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: unidadeId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Estoque consultado
+
+  /fidelidade/{usuarioId}:
+    get:
+      summary: Consulta fidelidade
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Pontos consultados
+        "404":
+          description: Cliente não encontrado
+
+  /pagamentos:
+    get:
+      summary: Lista pagamentos
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Pagamentos consultados
+
+  /auditoria:
+    get:
+      summary: Lista a auditoria
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Auditoria consultada
+        "403":
+          description: Perfil sem permissão

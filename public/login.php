@@ -32,30 +32,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>body {
-            background-color: #121212;
-            color: #ffffff;/
-            font-family: Arial, sans-serif;
-        }</style>
-</head>
-<body>
-    <h2>Raízes do Norte</h2>
+<?php
+$tituloPagina = "Login";
+require __DIR__ . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Raízes do Nordeste</h1>
     
     <form method="POST" action="login.php">
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="password" name="senha" placeholder="Senha" required><br>
-        <button type="submit">Entrar</button>
+        <input class="form-control" type="email" name="email" placeholder="Email" required><br>
+        <input class="form-control" type="password" name="senha" placeholder="Senha" required><br>
+        <button  class="btn btn-primary" type="submit">Entrar</button>
 
     </form>
 
-</body>
-</html>
-
+<?php require __DIR__ . "/componentes/rodape.php"; ?>
 
 

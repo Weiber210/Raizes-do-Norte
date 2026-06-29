@@ -40,33 +40,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Produto</title>
-</head>
-<body>
-    <h1>Cadastrar Produto</h1>
-    <form method="POST" action="">
+<?php
+$tituloPagina = "Cadastrar produtos";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+
+    <h1 class="titulo-pagina mb-4">Cadastrar Produto</h1>
+    <form method="POST">
         <label>Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
+        <input class="form-control" type="text" id="nome" name="nome" required><br><br>
 
         <label>Descrição:</label><br>
-        <textarea name="descricao" required></textarea><br><br>
+        <textarea class="form-control" name="descricao" required></textarea><br><br>
 
         <label for="preco">Preço:</label>
-        <input type="number" step="0.01" name="preco" required><br><br>
+        <input class="form-control" type="number" step="0.01" name="preco" required><br><br>
 
         <label>Ativo:</label><br>
-        <select name="ativo">
+        <select class="form-select" name="ativo">
             <option value="true">Ativo</option>
             <option value="false">Inativo</option>
         </select><br><br>
 
-        <button type="submit">Cadastrar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
     </form>
-</body>
-</html>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>

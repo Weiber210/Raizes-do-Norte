@@ -47,26 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Unidade</title>
-</head>
-<body>
-    <h1>Editar</h1>
+<?php
+$tituloPagina = "Editar Unidade";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+    <h1 class="titulo-pagina mb-4">Editar</h1>
+
     <form method="POST">
-     
 
         <label>Nome:</label><br>
-        <input type="text" name="nome" value="<?= $unidade['nome'] ?>" required><br><br>
+        <input class="form-control" type="text" name="nome" value="<?= $unidade['nome'] ?>" required><br><br>
 
         <label>Cidade:</label><br>
-        <input type="text" id="cidade" name="cidade" value="<?= $unidade['cidade']?>" required><br><br>
+        <input class="form-control" type="text" id="cidade" name="cidade" value="<?= $unidade['cidade']?>" required><br><br>
 
             <label>Estado:</label><br>
-        <select name="estado">
+        <select class="form-select" name="estado">
             <option value="AC" <?= ($unidade['estado'] == "AC") ? 'selected' : '' ?>>AC</option>
             <option value="AL" <?= ($unidade['estado'] == "AL") ? 'selected' : '' ?>>AL</option>
             <option value="AM" <?= ($unidade['estado'] == "AM") ? 'selected' : '' ?>>AM</option>
@@ -97,17 +93,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </select><br><br>
 
         <label>Ativa:</label><br>
-        <select name="ativa" required>
+        <select class="form-select" name="ativa" required>
             <option value="true" <?= ($unidade['ativa'] == true) ? 'selected' : '' ?>>Sim</option>
             <option value="false" <?= ($unidade['ativa'] == false) ? 'selected' : '' ?>> Não</option>
         </select><br><br>
 
-        <button type="submit">Salvar</button>
-        <a href="index.php">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-secondary" href="index.php">Cancelar</a>
 
      </form>
-</body>
-</html>
-
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>
 
 

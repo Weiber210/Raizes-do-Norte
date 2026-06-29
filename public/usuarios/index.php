@@ -19,22 +19,20 @@ $stmt = $pdo->query($sql);
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários</title>
-</head>
-<body>
-    <H1>Usuários</H1>
+<?php
+$tituloPagina = "Usuários";
+require dirname(__DIR__) . "/componentes/cabecalho.php";
+?>
+
+    <h1 class="titulo-pagina mb-4">Usuários</H1>
     
-        <a href="cadastrar.php"><button>Novo Usuário</button></a>
-        <a href="../dashboard.php"><button>Voltar</button></a>
+        <a class="btn btn-primary" href="cadastrar.php">Novo Usuário</a>
+        <a class="btn btn-secondary"  href="../dashboard.php">Voltar</a>
 
         <br><br> 
 
-    <table border="1" cellpadding="8">
+    <div class="table-responsive mt-4">
+    <table class="table table-striped table-hover align-middle">
         <tr>
             <th>ID</th>
             <th>Nome</th>
@@ -60,11 +58,11 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                 </td>
                 <td class="actions">
-                    <a href="editar.php?id=<?= $usuario['id'] ?>"><button>Editar</button></a>
-                    <a onclick="return confirm('Tem certeza que deseja excluir este usuário?');" href="excluir.php?id=<?= $usuario['id'] ?>"><button>Excluir</button></a>
+                    <a class="btn btn-primary" href="editar.php?id=<?= $usuario['id'] ?>">Editar</a>
+                    <a class="btn btn-secondary" onclick="return confirm('Tem certeza que deseja excluir este usuário?');" href="excluir.php?id=<?= $usuario['id'] ?>">Excluir</a>
                 </td>
         </tr>
             <?php } ?>
     </table>
-</body>
-</html>
+    </div>
+<?php require dirname(__DIR__) . "/componentes/rodape.php"; ?>
