@@ -90,7 +90,7 @@ class PedidoController{
     array $dados,
     int $usuarioResponsavelId
     ): string {
-    // Valida a entrada do mock e encaminha ao serviço.
+    // Valida a entrada
     if (
         !isset($dados["pedido_id"]) ||
         !isset($dados["resultado"])
@@ -125,7 +125,7 @@ class PedidoController{
 
     public function atualizarStatus(array $dados, int $usuarioResponsavelId, string $perfil): string
     {
-    // Valida a entrada e encaminha a atualização ao serviço.
+    // Valida a entrada
     if (!isset($dados["pedido_id"]) || !isset($dados["novo_status"])) {
         throw new InvalidArgumentException("Dados da atualização não informados.");
     }

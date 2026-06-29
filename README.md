@@ -71,3 +71,49 @@ API:
 Importe a coleção disponível em `tests/Postman`.
 
 A coleção contém cenários positivos e negativos da API.
+
+## Banco de dados
+
+Execute todas as migrations na ordem numérica, de `001` até `011`.
+
+Depois execute os seeds na ordem numérica, de `001` até `005`.
+
+## Usuários de demonstração
+
+Todos utilizam a senha `Teste@123`.
+
+- `admin@teste.com` — Administrador
+- `gerente@teste.com` — Gerente
+- `atendente@teste.com` — Atendente
+- `cozinha@teste.com` — Cozinha
+- `cliente@teste.com` — Cliente
+
+Essas contas devem ser utilizadas somente para demonstração e testes.
+
+## Postman
+
+1. Importe os dois arquivos disponíveis em `tests/Postman`.
+2. Selecione o ambiente `Raízes Local`.
+3. Preencha `clienteId` com o ID do Cliente de teste.
+4. Execute a coleção pelo Collection Runner.
+
+A execução validada possui 24 testes aprovados e nenhuma falha.
+
+## Evidências
+
+As evidências do Postman estão disponíveis em `docs/evidencias`.
+
+## Endpoints principais
+
+- `POST /api/auth/login`
+- `GET /api/produtos`
+- `GET /api/pedidos`
+- `POST /api/pedidos`
+- `GET /api/pedidos/{id}`
+- `DELETE /api/pedidos/{id}`
+- `POST /api/pedidos/{id}/pagamentos`
+- `PATCH /api/pedidos/{id}/status`
+- `GET /api/estoque`
+- `GET /api/fidelidade/{usuarioId}`
+- `GET /api/pagamentos`
+- `GET /api/auditoria`

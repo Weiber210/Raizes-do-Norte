@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["senha"];
 
 
-    $sql = "select * from usuarios WHERE LOWER(email) = LOWER(?)AND ativo = true";
+    $sql = "select * from usuarios WHERE LOWER(email) = LOWER(?) AND ativo = true";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
 

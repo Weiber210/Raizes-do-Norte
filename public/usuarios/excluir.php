@@ -5,7 +5,7 @@ require_once '../auth/verificar.php';
 // Permissão
 autorizarPerfis(["Administrador"]);
 
-//Conectar ao banco de ddados
+//Conectar ao banco de dados
 require_once '../../config/database.php';  
 
 // Localiza o ID

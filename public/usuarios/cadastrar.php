@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindValue(3, $perfil, PDO::PARAM_STR);
         $stmt->bindValue(4, $consentimento_lgpd, PDO::PARAM_BOOL);
         $stmt->bindValue(5, $created_at, PDO::PARAM_STR);
-        // SENHA!!!
+        // Vincula a senha
         $stmt->bindValue(6, $senha, PDO::PARAM_STR);
 
 
