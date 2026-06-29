@@ -1,13 +1,10 @@
 <?php
 // Bloqueio de Login
 require_once '../auth/verificar.php';
-
-// Permissão
-autorizarPerfis(["Administrador", "Gerente"]);
-
 //Conectar ao banco de dados
 require_once '../../config/database.php';
-
+// Permissão
+autorizarPerfis(["Administrador", "Gerente"]);
 
 // Consultar banco
 $sql =  "select * from produtos order by id";
@@ -54,8 +51,8 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
                     ?>
                 </td>
                 <td class="actions">
-                    <a href="editar.php?id=<?= $produto['id'] ?>"><button>Editar</button></a>
-                    <a onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>"><button>Excluir</button></a>
+                    <a class="btn btn-primary" href="editar.php?id=<?= $produto['id'] ?>">Editar</a>
+                    <a class="btn btn-secondary"  onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>">Excluir</a>
                 </td>
         </tr>
             <?php } ?>

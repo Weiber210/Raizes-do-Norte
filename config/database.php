@@ -1,6 +1,7 @@
 <?php
 //localização e conexão com o banco de dados
 require_once "env.php";
+require_once __DIR__ . "/log.php";
 
 //Dados do banco
 $host = $_ENV['DB_HOST'];

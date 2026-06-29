@@ -1,6 +1,8 @@
 <?php
-require_once "../auth/verificar.php";
-
+// Bloqueio de Login
+require_once '../auth/verificar.php';
+// Conectar ao Banco de Dados
+require_once "../../config/database.php";
 // Permissão
 autorizarPerfis(["Administrador","Gerente","Atendente"]);
 
