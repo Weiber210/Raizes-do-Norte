@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 // Faz retornar para a página de login
 if (!isset($_SESSION["usuario"])) {
     header("Location: /Raizes-do-Norte/public/login.php");
@@ -23,9 +27,15 @@ $_SESSION["ultimo_acesso"] = time();
 
 if (($_SESSION["perfil"] ?? "") === "Cliente") {
     http_response_code(403);
-    echo "Acesso negado ao painel administrativo.";
-    exit;
+     exit("Acesso negado ao painel administrativo.");
 }
 
+function autorizarPerfis(array $perfisPermitidos): void
+{
+    $perfil = $_SESSION["perfil"] ?? "";
 
-http_response_code(200);
+    if (!in_array($perfil, $perfisPermitidos, true)) {
+        http_response_code(403);
+        exit("Perfil sem permissão para acessar esta página.");
+    }
+}

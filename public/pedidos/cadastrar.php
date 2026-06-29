@@ -1,6 +1,11 @@
 <?php
 // Bloqueio de Login
 require_once '../auth/verificar.php';
+
+// Permissão
+autorizarPerfis(["Administrador","Gerente","Atendente"]);
+
+
 // Conectar ao banco de dados
 require_once '../../config/database.php';
 
