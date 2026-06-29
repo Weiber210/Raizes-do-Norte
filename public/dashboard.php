@@ -23,7 +23,7 @@ $tituloPagina = "Dashboard";
 require __DIR__ . "/componentes/cabecalho.php";
 ?>
     <h1>Raízes do Nordeste</h1>
-    <p>Bem-vindo,<?= htmlspecialchars($_SESSION["usuario"], ENT_QUOTES, "UTF-8")?>!</p>
+    <p>Bem-vindo, <?= htmlspecialchars($_SESSION["usuario"], ENT_QUOTES, "UTF-8")?>!</p>
     <div class="row g-3 mt-2">
     <div class="col-md-3">
         <div class="card">

@@ -183,7 +183,7 @@ class PedidoService{
     string $resultado,
     int $usuarioResponsavelId
     ): string {
-    // Processa a resposta simulada do gateway de pagamento.
+    // Gateway de pagamento
     $resultado = strtoupper(trim($resultado));
 
     if ($pedidoId <= 0 || $usuarioResponsavelId <= 0) {
@@ -300,7 +300,7 @@ class PedidoService{
     int $usuarioResponsavelId,
     string $perfil
     ): string {
-    // Valida a transição e atualiza o status do pedido.
+    // Valida a transição
     $novoStatus = strtoupper(trim($novoStatus));
     $perfil = trim($perfil);
 

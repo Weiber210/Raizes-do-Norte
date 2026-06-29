@@ -13,7 +13,7 @@ $id = $_GET['id'] ?? null;
 if(!$id){
     die("ID da Unidade não informado.");
 }
-// Buscar o Unidade
+// Buscar a Unidade
 $sql = "select * from unidades where id = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$id]);
@@ -22,7 +22,7 @@ if(!$unidade){
     die("Unidade não encontrada.");
 }
 
-// Atualizar o produto
+// Atualizar a Unidade
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $nome = $_POST['nome'];
