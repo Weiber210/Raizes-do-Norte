@@ -10,6 +10,7 @@ class AuthRepository{
             SELECT id, nome, email, senha, perfil
             FROM usuarios
             WHERE LOWER(email) = LOWER(:email)
+            AND ativo = true
             LIMIT 1
         ";
 

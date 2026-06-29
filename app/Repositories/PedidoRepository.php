@@ -41,6 +41,7 @@ class PedidoRepository{
         SELECT id, nome
         FROM usuarios
         WHERE perfil = :perfil
+        AND ativo = true
         ORDER BY nome
     ";
 

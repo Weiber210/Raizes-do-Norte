@@ -83,9 +83,13 @@ $pedidos = $controller->listar($_GET);
                 <td class="actions">
                     <?php if (in_array($pedido["status"], ["EM_PREPARO", "PRONTO"], true)) { ?>
                     <a href="editar.php?id=<?= (int) $pedido["id"] ?>"><button>Atualizar status</button></a>
-                    <?php } ?>
-                    <a onclick="return confirm('Tem certeza que deseja excluir este pedido?');" href="excluir.php?id=<?= $pedido['id'] ?>"><button>Excluir</button></a>
+                    <?php } ?>      
                     <?php if ($pedido["status"] === "AGUARDANDO_PAGAMENTO") { ?>
+
+                    <form method="POST" action="cancelar.php" style="display: inline;">
+                    <input type="hidden" name="pedido_id" value="<?= (int) $pedido["id"] ?>">
+                    <button type="submit" onclick="return confirm(&quot;Deseja cancelar este pedido?&quot;);">Cancelar</button>
+                    </form> <?php } ?>
                     
                     <form method="POST" action="../pagamentos/processar.php" style="display: inline;">
                         <input type="hidden" name="pedido_id" value="<?= (int) $pedido["id"] ?>">
@@ -97,7 +101,6 @@ $pedidos = $controller->listar($_GET);
                     <?php } ?>
                 </td>
         </tr>
-            <?php } ?>
     </table>
 </body>
 </html>

@@ -14,14 +14,18 @@ try{
 $pdo = new PDO(
     "pgsql:host=$host;port=$port;dbname=$db",
     $user,
-    $pass
+    $pass,
+    [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false
+    ]
+
 );
 
-// Mostrar o erro
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(Exception $erro){
+} catch (Throwable $erro) {
+error_log($erro->getMessage());
 
-// Mostrar mensagem
-die("ERRO AO CONECTAR AO BANCO DE DADOS: ".$erro->getMessage());
+http_response_code(500);
+exit("Não foi possível conectar ao banco de dados.");
 }
