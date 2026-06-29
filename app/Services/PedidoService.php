@@ -114,7 +114,7 @@ class PedidoService{
 
     if ($estoque === false) {
         throw new RuntimeException(
-            "Produto indisponível na unidade selecionada."
+            "Produto ou unidade não encontrado."
         );
     }
 
