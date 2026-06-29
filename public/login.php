@@ -9,12 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["senha"];
 
 
-    $sql = "select * from usuarios WHERE email = ?";
+    $sql = "select * from usuarios WHERE LOWER(email) = LOWER(?)AND ativo = true";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    session_regenerate_id(true);
     if ($usuario && password_verify($senha, $usuario["senha"])) {
 
         $_SESSION["id"] = $usuario["id"];

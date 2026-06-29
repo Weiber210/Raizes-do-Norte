@@ -1,3 +1,10 @@
+<?php
+// Conectar ao banco de dados
+require_once "../auth/verificar.php";
+// Permissão
+autorizarPerfis(["Administrador"]);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
