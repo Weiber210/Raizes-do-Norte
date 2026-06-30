@@ -5,6 +5,7 @@ class AuthController{
     {
     }
 
+    // Recebe os dados usados no login da API
     public function login(array $dados): array
     {
     // Valida a entrada

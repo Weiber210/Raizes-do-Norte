@@ -4,6 +4,7 @@ class AuthRepository{
     public function __construct(private PDO $pdo)
     {}
 
+    // Busca um usuário ativo pelo email
     public function buscarPorEmail(string $email): array|false
     {
         $sql = "

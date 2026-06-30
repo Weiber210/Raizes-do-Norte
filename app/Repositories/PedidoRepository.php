@@ -3,6 +3,7 @@ class PedidoRepository{
     
     public function __construct(private PDO $pdo)
     {}
+    // Consulta os pedidos no banco de dados
     public function listar(?string $canal = null): array
     {
      $sql = "
@@ -146,6 +147,7 @@ class PedidoRepository{
     return $stmt->fetch(PDO::FETCH_ASSOC);
     } 
 
+    // Cadastra os dados principais do pedido
     public function criarPedido(
     int $clienteId,
     int $unidadeId,
@@ -186,6 +188,7 @@ class PedidoRepository{
     return (int) $stmt->fetchColumn();
     }
 
+    // Registra o produto e a quantidade do pedido
     public function adicionarItem(
     int $pedidoId,
     int $produtoId,
@@ -218,6 +221,7 @@ class PedidoRepository{
     $stmt->bindValue(":subtotal", $subtotal, PDO::PARAM_STR);
     $stmt->execute();
     }
+    // Retira do estoque a quantidade vendida
     public function baixarEstoque(int $estoqueId, int $quantidade): bool
     {
     $sql = "
@@ -236,6 +240,7 @@ class PedidoRepository{
     return $stmt->rowCount() === 1;
     }
     
+    // Guarda a ação realizada pelo usuário
     public function registrarAuditoria(
     int $usuarioId,
     string $acao,
@@ -276,6 +281,7 @@ class PedidoRepository{
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    // Salva o resultado recebido do pagamento
     public function registrarPagamento(
     int $pedidoId,
     string $status,
@@ -325,6 +331,7 @@ class PedidoRepository{
 
     return $stmt->rowCount() === 1;
     }
+    // Devolve ao estoque os itens de um pedido cancelado
     public function devolverEstoqueDoPedido(int $pedidoId): bool
     {
     $sql = "
@@ -420,6 +427,7 @@ class PedidoRepository{
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Consulta os pontos de fidelidade do cliente
     public function consultarFidelidade(int $usuarioId): array|false
     {
     $sql = "
@@ -483,6 +491,7 @@ class PedidoRepository{
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Reúne os totais apresentados no dashboard
     public function obterIndicadoresDashboard(): array
     {
     $sql = "

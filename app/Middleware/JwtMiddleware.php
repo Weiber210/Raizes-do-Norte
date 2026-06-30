@@ -4,6 +4,7 @@ class JwtMiddleware{
     public function __construct(private Jwt $jwt)
     {}
 
+    // Valida o token enviado na requisição
     public function autenticar(): array
     {
     $autorizacao = $_SERVER["HTTP_AUTHORIZATION"] ?? "";
@@ -28,6 +29,7 @@ class JwtMiddleware{
     }
     }
 
+    // Confere se o perfil pode acessar a rota
     public function autorizar(array $usuario, array $perfis): void
     {
     $perfil = $usuario["perfil"] ?? "";

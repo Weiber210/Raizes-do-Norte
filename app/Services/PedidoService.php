@@ -66,6 +66,7 @@ class PedidoService{
             "produtos" => $this->repository->listarProdutosDisponiveis()
     ];
     }
+    // Valida os dados e coordena o cadastro do pedido
     public function cadastrar(
     int $clienteId,
     int $unidadeId,
@@ -178,6 +179,7 @@ class PedidoService{
     }
     }
 
+    // Registra o pagamento e atualiza o pedido
     public function processarPagamento(
     int $pedidoId,
     string $resultado,
@@ -294,6 +296,7 @@ class PedidoService{
     return $pedido;
     }
 
+    // Controla as mudanças permitidas no status
     public function atualizarStatus(
     int $pedidoId,
     string $novoStatus,
@@ -405,6 +408,7 @@ class PedidoService{
     return $this->repository->obterIndicadoresDashboard();
     }
 
+    // Cancela o pedido e devolve o estoque quando necessário
     public function cancelarPedido(
     int $pedidoId,
     int $usuarioResponsavelId

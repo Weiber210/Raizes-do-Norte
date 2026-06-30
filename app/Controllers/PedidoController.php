@@ -6,6 +6,7 @@ class PedidoController{
     {}
     
 
+    // Lista os pedidos usando os filtros recebidos
     public function listar(array $filtros): array
     {
     $canal = $filtros["canalPedido"] ?? null;
@@ -18,6 +19,7 @@ class PedidoController{
     
     return $this->service->obterDadosCadastro();
     }
+    // Recebe os dados e solicita o cadastro do pedido
     public function cadastrar(
     array $dados,
     int $usuarioResponsavelId
@@ -86,6 +88,7 @@ class PedidoController{
     );
     }
 
+    // Recebe o resultado simulado do pagamento
     public function processarPagamento(
     array $dados,
     int $usuarioResponsavelId
@@ -123,6 +126,7 @@ class PedidoController{
     return $this->service->obterPedidoParaEdicao($pedidoId);
     }
 
+    // Recebe o novo status e o perfil responsável
     public function atualizarStatus(array $dados, int $usuarioResponsavelId, string $perfil): string
     {
     // Valida a entrada
@@ -192,6 +196,7 @@ class PedidoController{
     return $this->service->obterIndicadoresDashboard();
     }
 
+    // Solicita o cancelamento do pedido
     public function cancelar(
     int $pedidoId,
     int $usuarioResponsavelId

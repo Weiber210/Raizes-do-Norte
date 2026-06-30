@@ -8,6 +8,7 @@ class AuthService{
     ) {
     }
 
+    // Confere as credenciais e gera o token de acesso
     public function autenticar(string $email, string $senha): array
     {
     // Valida as credenciais
