@@ -22,7 +22,7 @@ autorizarPerfis(["Administrador"]);
 
     <script>
     SwaggerUIBundle({
-    url: "/Raizes-do-Norte/docs/openapi.yaml",
+    url: "openapi.php",
     dom_id: "#swagger-ui",
     persistAuthorization: true
     });

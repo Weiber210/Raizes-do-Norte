@@ -26,6 +26,15 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
         <a class="btn btn-secondary" href="../dashboard.php">Voltar</a>
 
         <br><br> 
+
+    <?php if (isset($_GET["sucesso"])) { ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_GET["sucesso"], ENT_QUOTES, "UTF-8") ?></div>
+    <?php } ?>
+
+    <?php if (isset($_GET["erro"])) { ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($_GET["erro"], ENT_QUOTES, "UTF-8") ?></div>
+    <?php } ?>
+
     <div class="table-responsive mt-4">
     <table class="table table-striped table-hover align-middle">
         <tr>
@@ -52,7 +61,9 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
                 </td>
                 <td class="actions">
                     <a class="btn btn-primary" href="editar.php?id=<?= $produto['id'] ?>">Editar</a>
-                    <a class="btn btn-secondary"  onclick="return confirm('Tem certeza que deseja excluir este produto?');" href="excluir.php?id=<?= $produto['id'] ?>">Excluir</a>
+                    <?php if ($produto["ativo"]) { ?>
+                        <form method="POST" action="excluir.php" style="display: inline;" onsubmit="return confirm(&quot;Tem certeza que deseja desativar este produto?&quot;);"><input type="hidden" name="id" value="<?= (int) $produto["id"] ?>"><button class="btn btn-secondary" type="submit">Desativar</button></form>
+                    <?php } ?>
                 </td>
         </tr>
             <?php } ?>

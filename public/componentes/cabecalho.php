@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__DIR__, 2) . "/config/app.php";
+
 $tituloPagina = $tituloPagina ?? "Raízes do Nordeste";
 ?>
 <!DOCTYPE html>
@@ -10,7 +12,7 @@ $tituloPagina = $tituloPagina ?? "Raízes do Nordeste";
     <title><?= htmlspecialchars($tituloPagina, ENT_QUOTES, "UTF-8") ?></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/Raizes-do-Norte/public/assets/css/estilo.css" rel="stylesheet">
+    <link href="<?= htmlspecialchars(urlPublica("assets/css/estilo.css"), ENT_QUOTES, "UTF-8") ?>" rel="stylesheet">
 </head>
 <body>
     <?php if (isset($_SESSION["usuario"])) { ?>

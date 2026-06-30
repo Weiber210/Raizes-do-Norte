@@ -6,7 +6,10 @@ info:
   description: API de gestão de pedidos, estoque, pagamentos e fidelidade.
 
 servers:
-  - url: http://localhost/Raizes-do-Norte/public/api
+  - url: ../api
+    description: Ambiente atual
+  - url: https://lightcoral-hare-673185.hostingersite.com/api
+    description: Hostinger
 
 components:
   securitySchemes:

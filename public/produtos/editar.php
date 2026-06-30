@@ -62,7 +62,7 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
         <input class="form-control" type="text" name="nome" value="<?= $produto['nome'] ?>" required><br><br>
 
         <label>Descrição:</label><br>
-        <textarea class="form-control"></textarea name="descricao" required><?= $produto['descricao'] ?></textarea><br><br>
+        <textarea class="form-control" name="descricao" required><?= $produto['descricao'] ?></textarea><br><br>
 
         <label>Preço:</label><br>
         <input class="form-control" type="number" step="0.01" name="preco" value="<?= $produto['preco'] ?>" required><br><br>

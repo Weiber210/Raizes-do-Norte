@@ -1,4 +1,5 @@
 <?php
+require_once "../config/app.php";
 //  Conectando com o banco de dados
 require_once '../config/database.php';
 session_start();
@@ -24,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["perfil"] = $usuario["perfil"];
         $_SESSION["ultimo_acesso"] = time();
 
-        header("Location: /Raizes-do-Norte/public/dashboard.php");
+        header("Location: " . urlPublica("dashboard.php"));
         exit;
 
     } else {

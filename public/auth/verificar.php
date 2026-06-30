@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__DIR__, 2) . "/config/app.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -6,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 // Faz retornar para a página de login
 if (!isset($_SESSION["usuario"])) {
-    header("Location: /Raizes-do-Norte/public/login.php");
+    header("Location: " . urlPublica("login.php"));
     exit;
 }
  
@@ -18,7 +19,7 @@ if (isset($_SESSION["ultimo_acesso"]) && (time() - $_SESSION["ultimo_acesso"]) >
     // Sessão expirada, redirecionar para a página de login
     session_unset();
     session_destroy();
-    header("Location: /Raizes-do-Norte/public/login.php");
+    header("Location: " . urlPublica("login.php"));
     exit;
 }
 

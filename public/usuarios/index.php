@@ -31,6 +31,14 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
 
         <br><br> 
 
+    <?php if (isset($_GET["sucesso"])) { ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_GET["sucesso"], ENT_QUOTES, "UTF-8") ?></div>
+    <?php } ?>
+
+    <?php if (isset($_GET["erro"])) { ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($_GET["erro"], ENT_QUOTES, "UTF-8") ?></div>
+    <?php } ?>
+
     <div class="table-responsive mt-4">
     <table class="table table-striped table-hover align-middle">
         <tr>
@@ -40,6 +48,7 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
             <th>Perfil</th>
             <th>Data de Criação</th>
             <th>Consentimento LGPD</th>
+            <th>Status</th>
             <th>Ações</th>
         </tr>
         <?php foreach($usuarios as $usuario){ ?>
@@ -57,9 +66,12 @@ require dirname(__DIR__) . "/componentes/cabecalho.php";
                     }
                     ?>
                 </td>
+                <td><?= $usuario["ativo"] ? "Ativo" : "Inativo" ?></td>
                 <td class="actions">
                     <a class="btn btn-primary" href="editar.php?id=<?= $usuario['id'] ?>">Editar</a>
-                    <a class="btn btn-secondary" onclick="return confirm('Tem certeza que deseja excluir este usuário?');" href="excluir.php?id=<?= $usuario['id'] ?>">Excluir</a>
+                    <?php if ($usuario["ativo"]) { ?>
+                        <form method="POST" action="excluir.php" style="display: inline;" onsubmit="return confirm(&quot;Tem certeza que deseja desativar este usuário?&quot;);"><input type="hidden" name="id" value="<?= (int) $usuario["id"] ?>"><button class="btn btn-secondary" type="submit">Desativar</button></form>
+                    <?php } ?>
                 </td>
         </tr>
             <?php } ?>
