@@ -13,6 +13,14 @@ $tituloPagina = $tituloPagina ?? "Raízes do Nordeste";
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= htmlspecialchars(urlPublica("assets/css/estilo.css"), ENT_QUOTES, "UTF-8") ?>" rel="stylesheet">
+
+    <script>
+    window.addEventListener("pageshow", function (evento) {
+        if (evento.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 </head>
 <body>
     <?php if (isset($_SESSION["usuario"])) { ?>

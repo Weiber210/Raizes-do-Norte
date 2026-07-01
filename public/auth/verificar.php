@@ -1,6 +1,12 @@
 <?php
 require_once dirname(__DIR__, 2) . "/config/app.php";
 
+header(
+"Cache-Control: no-store, no-cache, must-revalidate, max-age=0, private"
+);
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }

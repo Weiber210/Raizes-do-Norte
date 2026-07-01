@@ -4,6 +4,17 @@ require_once "../config/app.php";
 require_once '../config/database.php';
 session_start();
 
+header(
+"Cache-Control: no-store, no-cache, must-revalidate, max-age=0, private"
+);
+header("Pragma: no-cache");
+header("Expires: 0");
+
+if (isset($_SESSION["usuario"])) {
+    header("Location: " . urlPublica("dashboard.php"));
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
@@ -16,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    session_regenerate_id(true);
+    
     if ($usuario && password_verify($senha, $usuario["senha"])) {
-
+        session_regenerate_id(true);
         $_SESSION["id"] = $usuario["id"];
         $_SESSION["usuario"] = $usuario["nome"];
         $_SESSION["email"] = $usuario["email"];
