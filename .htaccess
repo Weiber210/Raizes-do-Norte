@@ -1,0 +1,17 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(sql|log|ini|bak|dist|md|txt|lock)$">
+    Require all denied
+</FilesMatch>
+
+RewriteEngine On
+
+RewriteRule ^(?:app|config|database|routes|storage|tests)(?:/|$) - [F,L,NC]
+
+RewriteRule ^docs/openapi\.yaml$ - [L,NC]
+RewriteRule ^docs(?:/|$) - [F,L,NC]
